@@ -6,9 +6,9 @@ app = typer.Typer()
 
 @app.command("solve")
 def solve(file: str):
-    """Solve a day's challenge"""
-    day = int(re.findall("\d+", "inputs/day01.txt")[0])
-    module = importlib.import_module('aoc2018.day1')
+    """Solve a day's challenge based on filename"""
+    day = int(re.findall("\d+", file)[0])
+    module = importlib.import_module(f"aoc2018.day{day}")
     print("Part 1:", getattr(module, 'part1')())
     print("Part 2:", getattr(module, 'part2')())
 
