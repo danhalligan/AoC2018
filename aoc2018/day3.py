@@ -1,4 +1,5 @@
 from collections import defaultdict
+import re
 
 def data():
     dat = open("inputs/day03.txt", "r").read().splitlines()
