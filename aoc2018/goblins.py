@@ -1,6 +1,7 @@
 from heapq import *
 from termcolor import colored
 
+
 # store position as (column, row)
 class Unit:
     def __init__(self, position):
