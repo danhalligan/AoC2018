@@ -72,4 +72,4 @@ def part2():
     # n = 890
     # values[(n - 470) % 56 + 470] == values[n]
     n = 1000000000 - 1
-    values[(n - 470) % 56 + 470]
+    return values[(n - 470) % 56 + 470]

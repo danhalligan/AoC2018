@@ -16,8 +16,3 @@ def part2():
         if f in seen:
             return f
         seen.add(f)
-
-
-if __name__ == "__main__":
-    print("Part1:", part1())
-    print("Part2:", part2())

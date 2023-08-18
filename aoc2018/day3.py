@@ -31,8 +31,3 @@ def overlap(d, overlaps):
 def part2():
     ol = coverage()
     return [d for d in data() if overlap(d, ol) == 0][0][0]
-
-
-if __name__ == "__main__":
-    print("Part1:", part1())
-    print("Part2:", part2())

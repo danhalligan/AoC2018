@@ -51,8 +51,3 @@ def part2(stop=20):
             result = str(coord[0]) + "," + str(coord[1]) + "," + str(size)
             # print(tot, result)
     return result
-
-
-if __name__ == "__main__":
-    print("Part1:", part1())
-    print("Part2:", part2(20))

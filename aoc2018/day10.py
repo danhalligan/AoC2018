@@ -31,12 +31,6 @@ def update(space):
     return new
 
 
-data = open("inputs/day10.txt").read().splitlines()
-data = [list(map(int, re.findall(r"-*\d+", line))) for line in data]
-
-space = [{"c": (x[0], x[1]), "v": (x[2], x[3])} for x in data]
-
-
 def find_message(space):
     count = 0
     while True:
@@ -51,6 +45,9 @@ def find_message(space):
     return txt, count
 
 
+data = open("inputs/day10.txt").read().splitlines()
+data = [list(map(int, re.findall(r"-*\d+", line))) for line in data]
+space = [{"c": (x[0], x[1]), "v": (x[2], x[3])} for x in data]
 txt, count = find_message(space)
 
 

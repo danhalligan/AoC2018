@@ -1,6 +1,5 @@
 import re
 from collections import defaultdict
-from math import prod
 
 
 def time(x):
@@ -47,8 +46,3 @@ def part2():
     r = [maxminute(t, mins) for t in range(60)]
     r = max(r, key=lambda x: x["t"])
     return r["g"] * r["m"]
-
-
-if __name__ == "__main__":
-    print("Part1:", part1())
-    print("Part2:", part2())

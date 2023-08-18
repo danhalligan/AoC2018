@@ -39,8 +39,3 @@ def part2():
             if sum(dist([x, y], p) for p in dat) < 10000:
                 count += 1
     return count
-
-
-if __name__ == "__main__":
-    print("Part1:", part1())
-    print("Part2:", part2())

@@ -47,15 +47,6 @@ lines = open("inputs/day22.txt").read().splitlines()
 depth = int(re.findall("\d+", lines[0])[0])
 target = tuple([int(x) for x in re.findall("\d+", lines[1])])
 
-# size = [16, 16]
-# cave = {}
-# for x in range(size[0]):
-#     for y in range(size[1]):
-#         cave[x, y] = erosion_level(x, y, target[0], target[1], depth)
-
-# for y in range(size[0]):
-#     print("".join([".", "=", "|"][cave[x, y] % 3] for x in range(size[1])))
-
 
 def part1():
     return sum(
@@ -67,8 +58,6 @@ def part1():
 # You can change if your new equipment would be valid for your current region
 # Switching to using the climbing gear, torch, or neither always takes seven minutes
 # Once you reach the target, you need the torch equipped
-
-
 def part2():
     # tool options
     options = [set(["C", "T"]), set(["C", "-"]), set(["T", "-"])]

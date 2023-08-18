@@ -43,8 +43,3 @@ def part2():
             working[x] = times[x] + 60
 
     return tottime
-
-
-if __name__ == "__main__":
-    print("Part1:", part1())
-    print("Part2:", part2())

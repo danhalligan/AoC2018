@@ -103,6 +103,9 @@ class Board:
             x.selected = False
             x.target = None
 
+    def total_units(self):
+        return sum(x.units for x in self.groups)
+
     def immune_groups(self):
         return [x for x in self.groups if x.type == "immune"]
 
@@ -128,6 +131,10 @@ class Board:
                 self.status_report()
                 print()
             self.target_selection()
+            u1 = self.total_units()
             self.attack(verbose=verbose)
+            u2 = self.total_units()
+            if u1 == u2:
+                return {"winner": "stalemate", "score": u2}
         winner = "immune" if len(self.immune_groups()) else "infection"
-        return {"winner": winner, "score": sum(x.units for x in self.groups)}
+        return {"winner": winner, "score": u2}

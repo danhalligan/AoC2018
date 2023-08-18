@@ -1,20 +1,11 @@
-dat = open("inputs/day08.txt", "r").read().rstrip().split()
-dat = list(map(int, dat))
-
-# dat = [2, 3, 0, 3, 10, 11, 12, 1, 1, 0, 1, 99, 2, 1, 1, 2]
-
-
-def parse_data(i):
+def parse_data(dat, i):
     nc, nm = dat[i : i + 2]
     i += 2
     children = list()
     for _ in range(nc):
-        res, i = parse_data(i)
+        res, i = parse_data(dat, i)
         children += [res]
     return [{"m": dat[i : i + nm], "c": children}, i + nm]
-
-
-x, i = parse_data(0)
 
 
 def sum_metadata(x):
@@ -29,14 +20,16 @@ def sum_metadata2(x):
         return sum(sum_metadata2(x["c"][i]) for i in ind)
 
 
+def parse_file(file):
+    dat = open(file, "r").read().rstrip().split()
+    dat = list(map(int, dat))
+    x, _ = parse_data(dat, 0)
+    return x
+
+
 def part1():
-    return sum_metadata(x)
+    return sum_metadata(parse_file("inputs/day08.txt"))
 
 
 def part2():
-    return sum_metadata2(x)
-
-
-if __name__ == "__main__":
-    print("Part1:", part1())
-    print("Part2:", part2())
+    return sum_metadata2(parse_file("inputs/day08.txt"))

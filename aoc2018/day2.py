@@ -28,8 +28,3 @@ def part2():
     for s1 in data():
         z = find_diff(data())
         return "".join(x for x, y in zip(*z) if x == y)
-
-
-if __name__ == "__main__":
-    print("Part1:", part1())
-    print("Part2:", part2())

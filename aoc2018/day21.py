@@ -1,41 +1,7 @@
 import re
 from collections import defaultdict
-
-
-def ints(x):
-    return list(map(int, re.findall("\\d+", x)))
-
-
-fns = {
-    "addr": (lambda reg, a, b: reg[a] + reg[b]),
-    "addi": (lambda reg, a, b: reg[a] + b),
-    "mulr": (lambda reg, a, b: reg[a] * reg[b]),
-    "muli": (lambda reg, a, b: reg[a] * b),
-    "banr": (lambda reg, a, b: reg[a] & reg[b]),
-    "bani": (lambda reg, a, b: reg[a] & b),
-    "borr": (lambda reg, a, b: reg[a] | reg[b]),
-    "bori": (lambda reg, a, b: reg[a] | b),
-    "setr": (lambda reg, a, b: reg[a]),
-    "seti": (lambda reg, a, b: a),
-    "gtir": (lambda reg, a, b: 1 if a > reg[b] else 0),
-    "gtri": (lambda reg, a, b: 1 if reg[a] > b else 0),
-    "gtrr": (lambda reg, a, b: 1 if reg[a] > reg[b] else 0),
-    "eqir": (lambda reg, a, b: 1 if a == reg[b] else 0),
-    "eqri": (lambda reg, a, b: 1 if reg[a] == b else 0),
-    "eqrr": (lambda reg, a, b: 1 if reg[a] == reg[b] else 0),
-}
-
-
-def parse_line(line):
-    fn, *codes = line.split(" ")
-    codes = list(map(int, codes))
-    return {"fn": fn, "a": codes[0], "b": codes[1], "c": codes[2]}
-
-
-program = open("inputs/day21.txt").read().splitlines()
-ip = program[0]
-program = program[1:]
-program = [parse_line(line) for line in program]
+from aoc2018.day16 import functions
+from aoc2018.day19 import parse_program
 
 
 # part 1.
@@ -47,8 +13,8 @@ program = [parse_line(line) for line in program]
 #
 # Thus we need to find the first value in reg 5 to end the program fastest.
 def part1():
-    ip = ints(ip)[0]
-    reg = [0] * 6
+    program, ip, reg = parse_program("inputs/day21.txt")
+    fns = functions()
     while reg[ip] < len(program):
         inst = program[reg[ip]]
         if reg[ip] == 28:
@@ -60,9 +26,10 @@ def part1():
 # part 2
 # the longest time will be found when the numbers cycle will be the value
 # just before the values at reg 5 cycle around.
+# Take quite a long time!
 def part2():
-    ip = ints(ip)[0]
-    reg = [0] * 6
+    program, ip, reg = parse_program("inputs/day21.txt")
+    fns = functions()
     vals = defaultdict(int)
     trail = 0
     while reg[ip] < len(program):

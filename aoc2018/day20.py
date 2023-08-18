@@ -38,39 +38,6 @@ def build_graph(regex):
     return graph
 
 
-def print_rooms(graph):
-    xs = [x[0] for x in graph.keys()]
-    ys = [x[1] for x in graph.keys()]
-
-    # Between rooms
-    print("#", end="")
-    for x in range(min(xs), max(xs) + 1):
-        print("##", end="")
-    print("")
-
-    for y in range(min(ys), max(ys) + 1):
-        print("#", end="")
-        # Rooms
-        for x in range(min(xs), max(xs)):
-            v = "." if (x, y) in graph.keys() else "#"
-            if x == 0 and y == 0:
-                v = "X"
-            print(v, end="")
-            s = "|" if move((x, y), "E") in graph[(x, y)] else "#"
-            print(s, end="")
-        v = "." if (max(xs), y) in graph.keys() else "#"
-        print(v, end="")
-        print("#")
-
-        # Between rooms
-        print("#", end="")
-        for x in range(min(xs), max(xs) + 1):
-            v = "-" if move((x, y), "S") in graph[(x, y)] else "#"
-            print(v, end="")
-            print("#", end="")
-        print("")
-
-
 def dij(graph):
     scores = {(0, 0): 0}
     queue = [(0, (0, 0))]

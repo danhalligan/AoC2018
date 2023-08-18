@@ -1,63 +1,42 @@
-import re
+from aoc2018.day16 import functions, ints
 
 
-def ints(x):
-    return list(map(int, re.findall("\\d+", x)))
+def parse_line(line):
+    fn, *codes = line.split(" ")
+    codes = list(map(int, codes))
+    return {"fn": fn, "a": codes[0], "b": codes[1], "c": codes[2]}
 
 
-fns = {
-    "addr": (lambda reg, a, b: reg[a] + reg[b]),
-    "addi": (lambda reg, a, b: reg[a] + b),
-    "mulr": (lambda reg, a, b: reg[a] * reg[b]),
-    "muli": (lambda reg, a, b: reg[a] * b),
-    "banr": (lambda reg, a, b: reg[a] & reg[b]),
-    "bani": (lambda reg, a, b: reg[a] & b),
-    "borr": (lambda reg, a, b: reg[a] | reg[b]),
-    "bori": (lambda reg, a, b: reg[a] | b),
-    "setr": (lambda reg, a, b: reg[a]),
-    "seti": (lambda reg, a, b: a),
-    "gtir": (lambda reg, a, b: 1 if a > reg[b] else 0),
-    "gtri": (lambda reg, a, b: 1 if reg[a] > b else 0),
-    "gtrr": (lambda reg, a, b: 1 if reg[a] > reg[b] else 0),
-    "eqir": (lambda reg, a, b: 1 if a == reg[b] else 0),
-    "eqri": (lambda reg, a, b: 1 if reg[a] == b else 0),
-    "eqrr": (lambda reg, a, b: 1 if reg[a] == reg[b] else 0),
-}
+def parse_program(file):
+    program = open(file).read().splitlines()
+    ip = program[0]
+    program = program[1:]
+    program = [parse_line(line) for line in program]
+    ip = ints(ip)[0]
+    reg = [0] * 6
+    return program, ip, reg
 
 
 def part1():
-    program = open("inputs/day19.txt").read().splitlines()
-    ip = program[0]
-    program = program[1:]
-
-    # run program
-    ip = ints(ip)[0]
-    reg = [0] * 6
-
+    program, ip, reg = parse_program("inputs/day19.txt")
+    fns = functions()
     while reg[ip] < len(program):
-        line = program[reg[ip]]
-        # print(f"ip={reg[ip]}, {reg}", end=" ")
-        # print(line, end=" ")
-        fn, *codes = line.split(" ")
-        codes = list(map(int, codes))
-        reg[codes[2]] = fns[fn](reg, codes[0], codes[1])
-        # print(f"{reg}")
+        inst = program[reg[ip]]
+        reg[inst["c"]] = fns[inst["fn"]](reg, inst["a"], inst["b"])
         reg[ip] += 1
     return reg[0]
 
 
 def part2():
-    ip = ints(ip)[0]
-    reg = [0] * 6
+    program, ip, reg = parse_program("inputs/day19.txt")
+    fns = functions()
     reg[0] = 1
 
     while reg[ip] < len(program):
-        line = program[reg[ip]]
+        inst = program[reg[ip]]
         # print(f"ip={reg[ip]}, {reg}", end=" ")
         # print(line, end=" ")
-        fn, *codes = line.split(" ")
-        codes = list(map(int, codes))
-        reg[codes[2]] = fns[fn](reg, codes[0], codes[1])
+        reg[inst["c"]] = fns[inst["fn"]](reg, inst["a"], inst["b"])
         # print(f"{reg}")
         reg[ip] += 1
         if reg[ip] == 1:

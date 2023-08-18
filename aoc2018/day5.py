@@ -29,8 +29,3 @@ def fix_and_react(polymer, l):
 
 def part2():
     return min(len(fix_and_react(polymer, l)) for l in lc)
-
-
-if __name__ == "__main__":
-    print("Part1:", part1())
-    print("Part2:", part2())
