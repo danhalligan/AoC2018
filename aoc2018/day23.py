@@ -11,14 +11,18 @@ def shrink(x, by):
     return [p // by for p in x[0:3]] + [ceil(x[3] / by)]
 
 
+def in_range_bots(point, bots):
+    return sum(md(point, x[0:3]) <= x[3] for x in bots)
+
+
 lines = open("inputs/day23.txt").read().splitlines()
-dat = [list(map(int, re.findall("-*\\d+", line))) for line in lines]
+bots = [list(map(int, re.findall("-*\\d+", line))) for line in lines]
 
 
 def part1():
-    sizes = [x[3] for x in dat]
-    largest = sizes.index(max(sizes))
-    return sum(md(dat[largest][0:3], x[0:3]) <= max(sizes) for x in dat)
+    sizes = [x[3] for x in bots]
+    largest = bots[sizes.index(max(sizes))]
+    return sum(md(largest[0:3], x[0:3]) <= max(sizes) for x in bots)
 
 
 # This works by shrinking down the boxes, and finding the best point
@@ -30,10 +34,10 @@ def part2():
     best = [0, 0, 0]
     for power in range(25, -1, -1):
         fac = 2**power
-        dats = [shrink(x, fac) for x in dat]
+        new_bots = [shrink(x, fac) for x in bots]
         points = [list(range(best[i] - 5, best[i] + 5, 1)) for i in range(3)]
         grid = list(product(*points))
-        inrange = [sum(md(point, x[0:3]) <= x[3] for x in dats) for point in grid]
+        inrange = [in_range_bots(point, new_bots) for point in grid]
         mx = max(inrange)
         best = grid[inrange.index(mx)]
         # print(power, mx, best)

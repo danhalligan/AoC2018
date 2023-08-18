@@ -14,11 +14,11 @@ def find_set(x):
     return s, x
 
 
-lines = open("inputs/day25.txt").read().splitlines()
-dat = [list(map(int, line.split(","))) for line in lines]
-
-count = 0
-while len(dat):
-    count += 1
-    s, dat = find_set(dat)
-print(count)
+def part1():
+    lines = open("inputs/day25.txt").read().splitlines()
+    dat = [list(map(int, line.split(","))) for line in lines]
+    count = 0
+    while len(dat):
+        count += 1
+        s, dat = find_set(dat)
+    return count
